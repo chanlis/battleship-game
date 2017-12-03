@@ -1,1 +1,10 @@
 /* This file is for your main application css. */
+
+@import "node_modulels/bootstrap/scss/bootstrap";
+
+#game {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+

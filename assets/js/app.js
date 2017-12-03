@@ -1,21 +1,29 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import "phoenix_html";
+import socket from './socket';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Game from './components/game';
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
+function renderGame(e) {
+  let div = document.getElementById('game');
+  let code = e.target.value;
+  console.log(code)
+  let channel = socket.channel("game:" +  code, {});
+  channel.join()
+    .receive("ok", state0 => {
+      console.log("Join successfully", state0);
+      ReactDOM.render(<Game code={code} state={state0} channel={channel} />, div);
+    })
+    .receive("error", resp => {
+      console.log("Unable to join", resp);
+    })
+  start
+}
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+function start() {
+  let main = document.getElementById('main');
+  let html = <button id="start-game" className="btn btn-primary" onClick={renderGame} value="ABCD">Join Game</button>
+  ReactDOM.render(html, main);
+}
 
-// import socket from "./socket"
+$(start);
