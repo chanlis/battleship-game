@@ -19,3 +19,21 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Game from './components/game';
+
+function renderGame() {
+  let div = document.getElementById('game');
+  ReactDOM.render(<Game />, div);
+}
+
+function start() {
+  let main = document.getElementById('main');
+  let html = <p>put stuff here</p>
+  renderGame();
+  ReactDOM.render(html, main);
+}
+
+$(start);
