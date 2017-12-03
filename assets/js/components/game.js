@@ -2,7 +2,6 @@ import React from 'react';
 import Chat from './chat';
 
 export default class Game extends React.Component {
-  // what does this do?
   constructor(props) {
     super(props)
     this.state = this.props.state;
@@ -17,12 +16,17 @@ export default class Game extends React.Component {
     this.props.channel.push("new_player", {chat: chat, user_name: user});
   }
 
+  renderPlayerName() {
+    console.log(window.user_name);
+  }
+
   render() {
     console.log(this.props.state);
+    console.log(window.user_name);
     return (
       <div>
-        <h3>Game: {this.props.code}</h3>
-        <Chat state={this.props.state} channel={this.props.channel} updateUser={this.updateUser} />
+          <h3>Game: {this.props.code}</h3>
+          <Chat state={this.props.state} channel={this.props.channel} updateUser={this.updateUser} />
       </div>
     );
   }

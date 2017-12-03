@@ -1,10 +1,12 @@
 defmodule BattleshipWeb.Router do
   use BattleshipWeb, :router
+  import BattleshipWeb.Plugs
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
+    plug :fetch_user
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -17,6 +19,7 @@ defmodule BattleshipWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    post "/", PageController, :set_name
   end
 
   # Other scopes may use custom stacks.

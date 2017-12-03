@@ -1,6 +1,6 @@
 defmodule BattleshipWeb.PlayerChannel do
   use BattleshipWeb, :channel
-
+ 
   alias Battleship.GameAgent
   alias Battleship.Chat
   alias Battleship.Game
@@ -24,8 +24,8 @@ defmodule BattleshipWeb.PlayerChannel do
     chat = Chat.new_player(chat, user_name)
     socket = socket
     |> assign(:user_name, user_name)
-
-    broadcast socket, "state_update", chat
+    game = socket.assigns[:game_code]
+    BattleshipWeb.Endpoint.broadcast("game:" <> game, "state_update", chat)
     {:reply, {:ok, Chat.client_view(chat)}, socket}
   end
 

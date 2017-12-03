@@ -1,4 +1,14 @@
 <div id="game">
+  <%= form_for @conn, page_path(@conn, :set_name), fn f -> %>
+    <%= text_input f, :name %>
+    <% submit "set name" %>
+  <% end %>
   <div id="main">
   </div>
 </div>
+
+<%= if @user_name do %>
+<script>
+  window.user_name = "<%= @user_name %>";
+</script>
+<% end %>

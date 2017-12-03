@@ -22,7 +22,7 @@ defmodule Battleship.Chat do
 
   def new_player(chat, name) do
     players = chat["players"] ++ Player.new(name)
-    Map.put(chat, "players", name)
+    Map.put(chat, "players", players)
   end
 
   def start_game(chat) do
