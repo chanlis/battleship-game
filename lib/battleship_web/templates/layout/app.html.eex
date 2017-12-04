@@ -7,26 +7,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Battleship!</title>
+    <title>Play Battleship!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
+      <header class="header py-4">
         <nav role="navigation">
-          <p>Battleship</p>
+          <h1 class="display-3">BATTLESHIP</p>
         </nav>
       </header>
 
+      <main role="main">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-
-      <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
-    </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

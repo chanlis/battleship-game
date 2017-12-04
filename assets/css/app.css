@@ -1,1 +1,57 @@
 /* This file is for your main application css. */
+
+@import "node_modules/bootstrap/scss/bootstrap";
+
+header {
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+main {
+  width: 100%;
+}
+
+#start-game, #set-user {
+  height: 100%;
+  margin: auto auto;
+}
+
+.alert:empty {
+  display: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.board {
+  display: inline-block;
+  width: auto;
+  background-color: #000;
+}
+
+.board .board-row {
+  width: 100%;
+  display: flex;  
+}
+
+.board .board-row:last-child .board-cell {
+  margin-bottom: 2px;
+}
+
+.board .board-row .board-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  background-color: #e6f2ff;  
+  height: 30px;
+  width: 30px;
+  margin: 2px 0 0 2px;
+  cursor: pointer;
+ 
+}
+
+.board .board-row .board-cell:last-child {
+  margin-right: 2px;  
+}
