@@ -7,7 +7,7 @@ class Message extends React.Component {
     return (
       <tr>
         <td>
-          <strong>{this.props.user.name}: </strong>
+          <strong>{this.props.user}: </strong>
           {this.props.text}
         </td>
       </tr>
@@ -26,6 +26,7 @@ export default class Chat extends React.Component {
   sendMessage(e) {
     if(e) e.preventDefault();
     let message = this.refs.message.value;
+    this.refs.message.value = "";
     this.props.channel.push("new_message", {message: message});
   }
 

@@ -8,8 +8,10 @@ defmodule BattleshipWeb.PlayerChannel do
 
   def join("game:" <> game_code, _payload, socket) do
     chat = Chat.new()
-    game = Game.new(chat)
+    game = GameAgent.get(game_code) || Game.new(chat)
+    GameAgent.put(game_code, game)
     socket = socket
+    |> assign(:code, game_code)
     |> assign(:game, game)
     {:ok, game, socket} 
   end
@@ -21,25 +23,24 @@ defmodule BattleshipWeb.PlayerChannel do
     |> assign(:user_name, user_name)
   end
 
-  def handle_in("new_player", %{"chat" => chat, "user_name" => user_name}, socket) do
-    player = Player.new(user_name)
-    chat = Chat.new_player(chat, player)
-    game = Game.new_player(socket.assigns[:game], chat)
+  # take out chat from input
+  def handle_in("new_player", %{"user_name" => name}, socket) do
+    code = socket.assigns[:code]
+    state = GameAgent.get(code)
+    game = Game.new_player(state, name);
+    GameAgent.put(code, game)
     socket = socket
-    |> assign(:player, player)
-    |> assign(:chat, chat)
-    |> assign(:game, game)
+    |> assign(:player, name)
     broadcast socket, "state_update", game
     {:reply, {:ok, game}, socket}
   end
 
-  def handle_in("new_message", %{"message" => message}, socket) do
+  def handle_in("new_message", %{"message" => text}, socket) do
+    code = socket.assigns[:code]
+    state = GameAgent.get(code)
     user = socket.assigns[:player]
-    chat = Chat.new_message(socket.assigns[:chat], user, message)
-    game = Game.new_message(socket.assigns[:game], chat)
-    socket = socket
-    |> assign(:chat, chat)    
-    |> assign(:game, game)
+    game = Game.new_message(state, user, text)
+    GameAgent.put(code, game)
     broadcast socket, "state_update", game
     {:reply, {:ok, game}, socket}
   end
