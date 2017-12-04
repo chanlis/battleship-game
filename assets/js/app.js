@@ -13,16 +13,18 @@ function renderGame(e) {
     .receive("ok", state0 => {
       console.log("Join successfully", state0);
       ReactDOM.render(<Game code={code} state={state0} channel={channel} />, div);
+      let chat = state0.chat;
+      let user = window.user_name;
+      channel.push("new_player", {chat: chat, user_name: user});
     })
     .receive("error", resp => {
       console.log("Unable to join", resp);
     })
-  start
 }
 
 function start() {
   let main = document.getElementById('main');
-  let html = <button id="start-game" className="btn btn-primary" onClick={renderGame} value="ABCD">Join Game</button>
+  let html = <div id="start-game" className="col col-4 mt-5"><button className="btn btn-outline-primary btn-block" onClick={renderGame} value="ABCD">Join Game</button></div>
   ReactDOM.render(html, main);
 }
 

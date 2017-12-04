@@ -1,6 +1,5 @@
 defmodule Battleship.Chat do
   alias Battleship.Game
-  alias Battleship.Player
 
   def new() do
     %{
@@ -16,12 +15,13 @@ defmodule Battleship.Chat do
     }
   end
 
-  def pushMessage(chat, user, message) do
-    Map.put(chat, :messages, %{user: user, text: message})
+  def new_message(chat, user, message) do
+    messages = [%{user: user, text: message} | Map.get(chat, "messages")]
+    Map.put(chat, "messages", messages)
   end
 
-  def new_player(chat, name) do
-    players = chat["players"] ++ Player.new(name)
+  def new_player(chat, player) do
+    players = chat["players"] ++ player
     Map.put(chat, "players", players)
   end
 
@@ -31,7 +31,7 @@ defmodule Battleship.Chat do
     if (length(players) == 2) do
       player1 = List.first(players)
       player2 = List.last(players)
-      game = Game.new(player1, player2)
+      game = Game.new(player1, player2, chat)
     end
     game
   end

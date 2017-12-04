@@ -8,7 +8,6 @@ defmodule BattleshipWeb.PageController do
   def set_name(conn, %{"name" => name}) do
     conn
     |> put_session(:name, name)
-    |> put_flash(:info, "Welcome #{name}")
     |> redirect(to: page_path(conn, :index))
   end
 end
