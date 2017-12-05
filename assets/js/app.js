@@ -5,8 +5,9 @@ import ReactDOM from 'react-dom';
 import Game from './components/game';
 
 function renderGame(e) {
+  e.preventDefault();
   let div = document.getElementById('game');
-  let code = e.target.value;
+  let code = document.getElementById('room').value;
   console.log(code)
   let channel = socket.channel("game:" +  code, {});
   channel.join()
@@ -24,7 +25,12 @@ function renderGame(e) {
 
 function start() {
   let main = document.getElementById('main');
-  let html = <div id="start-game" className="col col-4 mt-5"><button className="btn btn-outline-primary btn-block" onClick={renderGame} value="ABCD">Join Game</button></div>
+  let html = (
+    <div id="start-game" className="col col-4 mt-5">
+      <input id="room" type="text" className="form-control" placeholder="room name"></input>
+      <button className="btn btn-outline-primary btn-block" onClick={renderGame}>Join Game</button>
+    </div>
+  );
   ReactDOM.render(html, main);
 }
 

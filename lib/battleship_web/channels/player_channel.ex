@@ -44,9 +44,4 @@ defmodule BattleshipWeb.PlayerChannel do
     broadcast socket, "state_update", game
     {:reply, {:ok, game}, socket}
   end
-
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
 end
