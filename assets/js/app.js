@@ -4,11 +4,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Game from './components/game';
 
-function renderGame(e) {
-  e.preventDefault();
+function renderGame() {
   let div = document.getElementById('game');
   let code = document.getElementById('room').value;
-  console.log(code)
   let channel = socket.channel("game:" +  code, {});
   channel.join()
     .receive("ok", state0 => {

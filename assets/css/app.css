@@ -28,7 +28,7 @@ main {
 .board {
   display: inline-block;
   width: auto;
-  background-color: #000;
+  background-color: black;
 }
 
 .board .board-row {

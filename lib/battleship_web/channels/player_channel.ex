@@ -16,18 +16,13 @@ defmodule BattleshipWeb.PlayerChannel do
     {:ok, game, socket} 
   end
 
-  def join("player:" <> user_name, _payload, socket) do
-    session = Session.new()
-    socket = socket
-    |> assign(:session, session)
-    |> assign(:user_name, user_name)
-  end
-
-  # take out chat from input
   def handle_in("new_player", %{"user_name" => name}, socket) do
     code = socket.assigns[:code]
     state = GameAgent.get(code)
-    game = Game.new_player(state, name);
+    game = Game.new_player(state, name)
+    if !game.in_game && game.player1 != nil && game.player2 != nil do
+      game = Map.put(game, :in_game, true)
+    end
     GameAgent.put(code, game)
     socket = socket
     |> assign(:player, name)

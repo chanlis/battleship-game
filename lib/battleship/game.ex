@@ -6,15 +6,8 @@ defmodule Battleship.Game do
     %{
       player1: nil,
       player2: nil,
-      chat: chat_room
-    }
-  end
-
-  def new(p1, p2, c) do
-    %{
-      player1: p1,
-      player2: p2,
-      chat: c
+      chat: chat_room,
+      in_game: false
     }
   end
 

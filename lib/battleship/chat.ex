@@ -31,19 +31,4 @@ defmodule Battleship.Chat do
     players = [player | Map.get(chat, :players)]
     Map.put(chat, :players, players)
   end
-
-  def user_exists?(name) do
-  
-  end
-
-  def start_game(chat) do
-    players = chat.players
-    game = nil
-    if (length(players) == 2) do
-      player1 = List.first(players)
-      player2 = List.last(players)
-      game = Game.new(player1, player2, chat)
-    end
-    game
-  end
 end
